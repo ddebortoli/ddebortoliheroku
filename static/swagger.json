@@ -1,0 +1,262 @@
+{
+  "swagger" : "2.0",
+  "info" : {
+    "title" : "ddebortoliheroku",
+    "version" : "1.0.0",
+    "description" : "ddebortoliheroku"
+  },
+  "paths" : {
+    "/token" : {
+      "get" : {
+        "operationId" : "GET_Token",
+        "responses" : {
+          "200" : {
+            "description" : "The operation was successful.",
+            "schema" : {
+              "$ref" : "#/definitions/repositoriesResponse"
+            }
+          },
+          "401" : {
+            "description" : "UNAUTHORIZED.",
+            "schema" : {
+              "$ref" : "#/definitions/Unauthorized"
+            }
+          },
+          "400" : {
+            "description" : "The request cannot be fulfilled due to bad syntax.",
+            "schema" : {
+              "$ref" : "#/definitions/errorMessage"
+            }
+          }
+        },
+        "produces" : [ "application/json" ],
+        "description" : "Get jwt token",
+        "parameters" : [ {
+          "name" : "user",
+          "in" : "query",
+          "type" : "string",
+          "required" : true
+        }, {
+          "name" : "password",
+          "in" : "query",
+          "type" : "string",
+          "required" : true
+        } ]
+      }
+    },
+    "/users" : {
+      "get" : {
+        "operationId" : "GET_Users",
+        "responses" : {
+          "200" : {
+            "description" : "The operation was successful.",
+            "schema" : {
+              "$ref" : "#/definitions/userResponse"
+            }
+          },
+          "400" : {
+            "description" : "The request cannot be fulfilled due to bad syntax.",
+            "schema" : {
+              "$ref" : "#/definitions/errorMessage"
+            }
+          },
+          "401" : {
+            "description" : "UNAUTHORIZED.",
+            "schema" : {
+              "$ref" : "#/definitions/Unauthorized"
+            }
+          }
+        },
+        "produces" : [ "application/json" ],
+        "description" : "get data from users",
+        "parameters" : [ {
+          "name" : "Authorization",
+          "in" : "header",
+          "type" : "string",
+          "required" : true
+        }, {
+          "name" : "name",
+          "in" : "query",
+          "type" : "string"
+        } ]
+      }
+    },
+    "/repositories" : {
+      "get" : {
+        "operationId" : "getRepositories",
+        "responses" : {
+          "200" : {
+            "description" : "The operation was successful.",
+            "schema" : {
+              "$ref" : "#/definitions/tokenResponse"
+            }
+          },
+          "401" : {
+            "description" : "UNAUTHORIZED.",
+            "schema" : {
+              "$ref" : "#/definitions/Unauthorized"
+            }
+          },
+          "400" : {
+            "description" : "The request cannot be fulfilled due to bad syntax.",
+            "schema" : {
+              "$ref" : "#/definitions/errorMessage"
+            }
+          }
+        },
+        "produces" : [ "application/json" ],
+        "description" : "get repositories by id or catch all",
+        "parameters" : [ {
+          "name" : "Authorization",
+          "in" : "query",
+          "type" : "string",
+          "required" : true
+        }, {
+          "name" : "repository_id",
+          "in" : "query",
+          "type" : "integer"
+        } ]
+      }
+    },
+    "/logs" : {
+      "get" : {
+        "operationId" : "GET_logs",
+        "responses" : {
+          "200" : {
+            "description" : "The operation was successful.",
+            "schema" : {
+              "$ref" : "#/definitions/logsResponse"
+            }
+          },
+          "401" : {
+            "description" : "UNAUTHORIZED",
+            "schema" : {
+              "$ref" : "#/definitions/Unauthorized"
+            }
+          }
+        },
+        "produces" : [ "application/json" ],
+        "description" : "get user logs from db",
+        "parameters" : [ {
+          "name" : "Authorization",
+          "in" : "header",
+          "type" : "string",
+          "required" : true
+        } ]
+      }
+    }
+  },
+  "basePath" : "/ddebortoli",
+  "definitions" : {
+    "tokenResponse" : {
+      "type" : "object",
+      "properties" : {
+        "access_token" : {
+          "type" : "string"
+        }
+      }
+    },
+    "Unauthorized" : {
+      "type" : "object",
+      "properties" : {
+        "msg" : {
+          "type" : "string"
+        }
+      }
+    },
+    "errorMessage" : {
+      "type" : "object",
+      "properties" : {
+        "ERROR" : {
+          "type" : "string"
+        }
+      }
+    },
+    "userResponse" : {
+      "type" : "object",
+      "properties" : {
+        "MESSAGE" : {
+          "type" : "array",
+          "items" : {
+            "type" : "object",
+            "properties" : {
+              "element1" : {
+                "type" : "string"
+              },
+              "element2" : {
+                "type" : "integer"
+              },
+              "element3" : {
+                "type" : "string"
+              },
+              "element4" : {
+                "type" : "string",
+                "format" : "date-time"
+              },
+              "element5" : {
+                "type" : "string"
+              }
+            }
+          }
+        }
+      }
+    },
+    "repositoriesResponse" : {
+      "type" : "object",
+      "properties" : {
+        "MESSAGE" : {
+          "type" : "array",
+          "items" : {
+            "type" : "object",
+            "properties" : {
+              "element1" : {
+                "type" : "integer"
+              },
+              "element2" : {
+                "type" : "string"
+              },
+              "element3" : {
+                "type" : "string"
+              },
+              "element4" : {
+                "type" : "string",
+                "format" : "date-time"
+              },
+              "element5" : {
+                "type" : "string"
+              }
+            }
+          }
+        }
+      }
+    },
+    "logsResponse" : {
+      "type" : "object",
+      "properties" : {
+        "MESSAGE" : {
+          "type" : "array",
+          "items" : {
+            "type" : "object",
+            "properties" : {
+              "element1" : {
+                "type" : "string"
+              },
+              "element2" : {
+                "type" : "string"
+              },
+              "element3" : {
+                "type" : "string"
+              },
+              "element4" : {
+                "type" : "string"
+              },
+              "element5" : {
+                "type" : "string"
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
